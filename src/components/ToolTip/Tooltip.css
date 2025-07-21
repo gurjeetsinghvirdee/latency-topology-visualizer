@@ -1,0 +1,10 @@
+.toolTip {
+    position: fixed;
+    background-color: #111827cc;
+    color: white;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: 1000;
+}
