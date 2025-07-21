@@ -1,0 +1,44 @@
+[
+    {
+        "provider": "AWS",
+        "code": "eu-central-1",
+        "location": "Frankfurt",
+        "lat": 50.110924,
+        "lng": 8.682127
+    },
+    {
+        "provider": "AWS",
+        "code": "us-east-1",
+        "location": "N. Virginia",
+        "lat": 38.804835,
+        "lng": -77.046921
+    },
+    {
+        "provider": "AWS",
+        "code": "ap-southeast-1",
+        "location": "Singapore",
+        "lat": 1.352083,
+        "lng": 103.819836
+    },
+    {
+        "provider": "Azure",
+        "code": "westeurope",
+        "location": "Netherlands",
+        "lat": 52.3784,
+        "lng": 4.90093
+    },
+    {
+        "provider": "GCP",
+        "code": "europe-west1",
+        "location": "Belgium",
+        "lat": 50.8503,
+        "lng": 4.3517
+    },
+    {
+        "provider": "GCP",
+        "code": "europe-west4",
+        "location": "Netherlands",
+        "lat": 52.3676,
+        "lng": 4.9041
+    }
+]
