@@ -1,81 +1,113 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
-import exchanges from '../data/exchanges.json';
-import regions from '../data/regions.json';
-import { MarkerData } from '../types/marker';
-import { latLngToXYZ } from '../utils/latLngToXYZ';
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Stars } from "@react-three/drei";
+import exchanges from "../data/exchanges.json";
+import { Exchange } from "../types/exchange";
+import regions from "../data/regions.json";
+import { latLngToXYZ } from "../utils/latLngToXYZ";
+import { MarkerData } from "../types/marker";
+import { FilterState } from "../types/filter";
 
-interface Map3DProps {
-  setHovered: (marker: MarkerData | null) => void;
-}
-
-const Map3D: React.FC<Map3DProps> = ({ setHovered }) => {
-  const [hoveredMarker, setHoveredMarker] = useState<MarkerData | null>(null);
-
-  const exchangeMarkers: MarkerData[] = exchanges.map((exchange) => ({
-    name: exchange.name,
-    location: exchange.location,
-    lat: exchange.lat,
-    lng: exchange.lng,
-    provider: exchange.provider,
-    type: 'exchange',
-  }));
-
-  const regionMarkers: MarkerData[] = regions.map((region) => ({
-    name: region.code,
-    location: region.location,
-    lat: region.lat,
-    lng: region.lng,
-    provider: region.provider,
-    type: 'region',
-  }));
-
-  const allMarkers: MarkerData[] = [...exchangeMarkers, ...regionMarkers];
-
-  return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <Canvas camera={{ position: [0, 0, 3] }} dpr={[1, 2]}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[2, 2, 5]} intensity={1} />
-        <Stars radius={100} depth={50} count={5000} factor={4} fade />
-
-        {/* Earth Sphere */}
-        <mesh>
-          <sphereGeometry args={[1, 64, 64]} />
-          <meshStandardMaterial color="#1e90ff" wireframe />
-        </mesh>
-
-        {/* Markers */}
-        {allMarkers.map((marker, index) => {
-          const pos = latLngToXYZ(marker.lat, marker.lng, 1.01);
-          return (
-            <mesh
-              key={index}
-              position={pos}
-              onPointerOver={(e) => {
-                e.stopPropagation();
-                setHovered(marker);
-                setHoveredMarker(marker);
-              }}
-              onPointerOut={(e) => {
-                e.stopPropagation();
-                setHovered(null);
-                setHoveredMarker(null);
-              }}
-            >
-              <sphereGeometry args={[0.015, 16, 16]} />
-              <meshStandardMaterial color={marker.type === 'exchange' ? 'orange' : 'lime'} />
-            </mesh>
-          );
-        })}
-
-        <OrbitControls enableZoom enablePan />
-      </Canvas>
-    </div>
-  );
+const providerColors: Record<string, string> = {
+  AWS: '#FF9900',
+  Azure: '#007FFF',
+  GCP: '#4285F4',
+  Default: '#FFFFFF'
 };
 
-export default Map3D;
+interface Map3DProps {
+  setHovered: React.Dispatch<React.SetStateAction<MarkerData | null>>;
+  hovered: MarkerData | null;
+  filters: FilterState;
+}
+
+function Markers({ setHovered, filters }: { setHovered: React.Dispatch<React.SetStateAction<MarkerData | null>>; filters: FilterState }) {
+  // Apply filtering
+  const filteredExchanges = exchanges.filter(ex =>
+    (filters.provider === 'All' || ex.provider === filters.provider) &&
+    (!filters.exchange || ex.name === filters.exchange) &&
+    (filters.search === "" ||
+      ex.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+      ex.location.toLowerCase().includes(filters.search.toLowerCase()))
+  );
+
+  const filteredRegions = regions.filter(region => 
+    (filters.provider === 'All' || region.provider === filters.provider) &&
+    (filters.search === "" ||
+      region.location.toLowerCase().includes(filters.search.toLowerCase()) ||
+      region.code?.toLowerCase().includes(filters.search.toLowerCase()))
+  );
+
+  return (
+    <>
+      {filters.showMarkers && filteredExchanges.map((exchange, idx) => {
+        const [x, y, z] = latLngToXYZ(Number(exchange.lat), Number(exchange.lng));
+        const color = providerColors[exchange.provider] || providerColors.Default;
+        return (
+          <mesh
+            key={`exchange-${idx}`}
+            position={[x, y, z]}
+            onPointerOver={e => {
+              e.stopPropagation();
+              setHovered({
+                type: 'exchange',
+                name: exchange.name,
+                location: exchange.location,
+                provider: exchange.provider,
+                lat: exchange.lat,
+                lng: exchange.lng
+              });
+            }}
+            onPointerOut={() => setHovered(null)}
+          >
+            <sphereGeometry args={[0.03, 16, 16]} />
+            <meshStandardMaterial color={color} />
+          </mesh>
+        );
+      })}
+      {filters.showMarkers && filteredRegions.map((region, idx) => {
+        const [x, y, z] = latLngToXYZ(Number(region.lat), Number(region.lng));
+        const color = providerColors[region.provider] || providerColors.Default;
+        return (
+          <mesh
+            key={`region-${idx}`}
+            position={[x, y, z]}
+            onPointerOver={e => {
+              e.stopPropagation();
+              setHovered({
+                type: 'region',
+                name: region.code,
+                location: region.location,
+                provider: region.provider,
+                lat: region.lat,
+                lng: region.lng
+              });
+            }}
+            onPointerOut={() => setHovered(null)}
+          >
+            <boxGeometry args={[0.04, 0.04, 0.04]} />
+            <meshStandardMaterial color={color} />
+          </mesh>
+        );
+      })}
+    </>
+  );
+}
+
+export default function Map3D({ setHovered, hovered, filters }: Map3DProps) {
+  return (
+    <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
+      <ambientLight intensity={0.6} />
+      <pointLight position={[10, 10, 10]} />
+      <Stars radius={100} depth={50} count={1500} fade />
+      <OrbitControls enableZoom enableRotate />
+      {/* Globe */}
+      <mesh>
+        <sphereGeometry args={[1.5, 64, 64]} />
+        <meshStandardMaterial color="#1a1a1a" wireframe />
+      </mesh>
+      <Markers setHovered={setHovered} filters={filters} />
+    </Canvas>
+  );
+}
