@@ -25,7 +25,7 @@
         "location": "Hong Kong",
         "lat": 22.3964,
         "lng": 114.1095,
-        "provider": "Google Cloud"
+        "provider": "GCP"
     },
     {
         "name": "Bittrex",
@@ -40,5 +40,173 @@
         "lat": 52.3676,
         "lng": 4.9041,
         "provider": "GCP"
+    },
+    {
+        "name": "Bybit",
+        "location": "Singapore",
+        "lat": 1.3521,
+        "lng": 103.8198,
+        "provider": "AWS"
+    },
+    {
+        "name": "OKX",
+        "location": "Tokyo, Japan",
+        "lat": 35.6895,
+        "lng": 139.6917,
+        "provider": "Azure"
+    },
+    {
+        "name": "Huobi",
+        "location": "Seoul, South Korea",
+        "lat": 37.5665,
+        "lng": 126.9780,
+        "provider": "GCP"
+    },
+    {
+        "name": "Bitstamp",
+        "location": "Luxembourg City, Luxembourg",
+        "lat": 49.6117,
+        "lng": 6.1319,
+        "provider": "AWS"
+    },
+    {
+        "name": "Gate.io",
+        "location": "Toronto, Canada",
+        "lat": 43.651070,
+        "lng": -79.347015,
+        "provider": "Azure"
+    },
+    {
+        "name": "KuCoin",
+        "location": "Mumbai, India",
+        "lat": 19.0760,
+        "lng": 72.8777,
+        "provider": "GCP"
+    },
+    {
+        "name": "Bitmex",
+        "location": "San Francisco, USA",
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "provider": "AWS"
+    },
+    {
+        "name": "Poloniex",
+        "location": "Dallas, USA",
+        "lat": 32.7767,
+        "lng": -96.7970,
+        "provider": "Azure"
+    },
+    {
+        "name": "Crypto.com",
+        "location": "Zürich, Switzerland",
+        "lat": 47.3769,
+        "lng": 8.5417,
+        "provider": "GCP"
+    },
+    {
+        "name": "Upbit",
+        "location": "Busan, South Korea",
+        "lat": 35.1796,
+        "lng": 129.0756,
+        "provider": "AWS"
+    },
+    {
+        "name": "WazirX",
+        "location": "Bangalore, India",
+        "lat": 12.9716,
+        "lng": 77.5946,
+        "provider": "Azure"
+    },
+    {
+        "name": "Coincheck",
+        "location": "Osaka, Japan",
+        "lat": 34.6937,
+        "lng": 135.5023,
+        "provider": "GCP"
+    },
+    {
+        "name": "Bitso",
+        "location": "Mexico City, Mexico",
+        "lat": 19.4326,
+        "lng": -99.1332,
+        "provider": "AWS"
+    },
+    {
+        "name": "Bithumb",
+        "location": "Daegu, South Korea",
+        "lat": 35.8722,
+        "lng": 128.6025,
+        "provider": "Azure"
+    },
+    {
+        "name": "Luno",
+        "location": "Cape Town, South Africa",
+        "lat": -33.9249,
+        "lng": 18.4241,
+        "provider": "GCP"
+    },
+    {
+        "name": "Rain",
+        "location": "Manama, Bahrain",
+        "lat": 26.2235,
+        "lng": 50.5876,
+        "provider": "AWS"
+    },
+    {
+        "name": "Liquid",
+        "location": "Jakarta, Indonesia",
+        "lat": -6.2088,
+        "lng": 106.8456,
+        "provider": "Azure"
+    },
+    {
+        "name": "Bitbank",
+        "location": "Nagoya, Japan",
+        "lat": 35.1815,
+        "lng": 136.9066,
+        "provider": "AWS"
+    },
+    {
+        "name": "EXMO",
+        "location": "Kyiv, Ukraine",
+        "lat": 50.4501,
+        "lng": 30.5234,
+        "provider": "GCP"
+    },
+    {
+        "name": "Indodax",
+        "location": "Bali, Indonesia",
+        "lat": -8.3405,
+        "lng": 115.0920,
+        "provider": "AWS"
+    },
+    {
+        "name": "BitFlyer",
+        "location": "Osaka, Japan",
+        "lat": 34.6937,
+        "lng": 135.5023,
+        "provider": "Azure"
+    },
+    {
+        "name": "Unocoin",
+        "location": "Hyderabad, India",
+        "lat": 17.3850,
+        "lng": 78.4867,
+        "provider": "GCP"
+    },
+    {
+        "name": "CoinDCX",
+        "location": "Delhi, India",
+        "lat": 28.6139,
+        "lng": 77.2090,
+        "provider": "Azure"
+    },
+    {
+        "name": "Paxful",
+        "location": "Lagos, Nigeria",
+        "lat": 6.5244,
+        "lng": 3.3792,
+        "provider": "AWS"
     }
 ]
