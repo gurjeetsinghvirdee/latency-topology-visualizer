@@ -1,0 +1,252 @@
+[
+    {
+        "exchange": "Binance",
+        "region": "eu-central-1",
+        "latency": 28
+    },
+    {
+        "exchange": "Coinbase",
+        "region": "us-west-2",
+        "latency": 63
+    },
+    {
+        "exchange": "Kraken",
+        "region": "ap-south-1",
+        "latency": 145
+    },
+    {
+        "exchange": "Bybit",
+        "region": "ap-northeast-1",
+        "latency": 38
+    },
+    {
+        "exchange": "OKX",
+        "region": "me-central-1",
+        "latency": 80
+    },
+    {
+        "exchange": "KuCoin",
+        "region": "us-east-2",
+        "latency": 47
+    },
+    {
+        "exchange": "Bitfinex",
+        "region": "ca-central-1",
+        "latency": 70
+    },
+    {
+        "exchange": "Gemini",
+        "region": "eu-west-3",
+        "latency": 54
+    },
+    {
+        "exchange": "Bitstamp",
+        "region": "sa-east-1",
+        "latency": 110
+    },
+    {
+        "exchange": "Gate.io",
+        "region": "ap-southeast-2",
+        "latency": 35
+    },
+    {
+        "exchange": "MEXC",
+        "region": "eu-north-1",
+        "latency": 40
+    },
+    {
+        "exchange": "Bittrex",
+        "region": "us-west-1",
+        "latency": 58
+    },
+    {
+        "exchange": "Poloniex",
+        "region": "ap-east-1",
+        "latency": 92
+    },
+    {
+        "exchange": "Liquid",
+        "region": "eu-west-2",
+        "latency": 65
+    },
+    {
+        "exchange": "BitMart",
+        "region": "af-south-1",
+        "latency": 123
+    },
+    {
+        "exchange": "ZB.com",
+        "region": "ap-southeast-1",
+        "latency": 50
+    },
+    {
+        "exchange": "Huobi",
+        "region": "us-gov-west-1",
+        "latency": 115
+    },
+    {
+        "exchange": "Deribit",
+        "region": "europe-west4",
+        "latency": 66
+    },
+    {
+        "exchange": "LBank",
+        "region": "us-east-1",
+        "latency": 33
+    },
+    {
+        "exchange": "Crypto.com",
+        "region": "asia-southeast1",
+        "latency": 97
+    },
+    {
+        "exchange": "Upbit",
+        "region": "asia-northeast3",
+        "latency": 49
+    },
+    {
+        "exchange": "Probit",
+        "region": "us-south1",
+        "latency": 84
+    },
+    {
+        "exchange": "Phemex",
+        "region": "europe-west1",
+        "latency": 76
+    },
+    {
+        "exchange": "Bitget",
+        "region": "northamerica-northeast1",
+        "latency": 88
+    },
+    {
+        "exchange": "LATOKEN",
+        "region": "asia-south1",
+        "latency": 62
+    },
+    {
+        "exchange": "Bithumb",
+        "region": "europe-north1",
+        "latency": 95
+    },
+    {
+        "exchange": "EXMO",
+        "region": "us-west4",
+        "latency": 59
+    },
+    {
+        "exchange": "Nominex",
+        "region": "europe-west6",
+        "latency": 71
+    },
+    {
+        "exchange": "WhiteBIT",
+        "region": "asia-east1",
+        "latency": 44
+    },
+    {
+        "exchange": "Coincheck",
+        "region": "australia-southeast1",
+        "latency": 36
+    },
+    {
+        "exchange": "CEX.io",
+        "region": "us-central1",
+        "latency": 42
+    },
+    {
+        "exchange": "XT.com",
+        "region": "europe-west2",
+        "latency": 79
+    },
+    {
+        "exchange": "Bilaxy",
+        "region": "europe-southwest1",
+        "latency": 92
+    },
+    {
+        "exchange": "Indodax",
+        "region": "asia-northeast2",
+        "latency": 39
+    },
+    {
+        "exchange": "CoinTiger",
+        "region": "asia-southeast2",
+        "latency": 136
+    },
+    {
+        "exchange": "Hotbit",
+        "region": "us-east4",
+        "latency": 43
+    },
+    {
+        "exchange": "OKCoin",
+        "region": "europe-west9",
+        "latency": 61
+    },
+    {
+        "exchange": "AscendEX",
+        "region": "canada-southeast1",
+        "latency": 98
+    },
+    {
+        "exchange": "Coinsbit",
+        "region": "me-west1",
+        "latency": 58
+    },
+    {
+        "exchange": "Bitrue",
+        "region": "us-west3",
+        "latency": 69
+    },
+    {
+        "exchange": "BigONE",
+        "region": "asia-south2",
+        "latency": 77
+    },
+    {
+        "exchange": "CoinEx",
+        "region": "australia-southeast2",
+        "latency": 51
+    },
+    {
+        "exchange": "Kraken Pro",
+        "region": "asia-east2",
+        "latency": 92
+    },
+    {
+        "exchange": "WazirX",
+        "region": "asia-northeast1",
+        "latency": 114
+    },
+    {
+        "exchange": "Biconomy",
+        "region": "asia-southwest1",
+        "latency": 64
+    },
+    {
+        "exchange": "Tokocrypto",
+        "region": "europe-west8",
+        "latency": 85
+    },
+    {
+        "exchange": "BTCEX",
+        "region": "asia-central1",
+        "latency": 74
+    },
+    {
+        "exchange": "Coinsquare",
+        "region": "us-central2",
+        "latency": 105
+    },
+    {
+        "exchange": "Bitso",
+        "region": "mexico-central1",
+        "latency": 90
+    },
+    {
+        "exchange": "Valr",
+        "region": "africa-south1",
+        "latency": 134
+    }
+]
