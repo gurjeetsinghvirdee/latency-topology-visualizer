@@ -21,6 +21,8 @@ const providerColors: Record<string, string> = {
 interface Map3DProps {
   setHovered: React.Dispatch<React.SetStateAction<MarkerData | null>>;
   filters: FilterState;
+  selectedConnection: { exchange: string | null; region: string | null };
+  onConnectionSelect: (exchange: string, region: string) => void;
 }
 
 function Markers({
@@ -131,7 +133,12 @@ function Markers({
   );
 }
 
-export default function Map3D({ setHovered, filters }: Map3DProps) {
+export default function Map3D({
+  setHovered,
+  filters,
+  selectedConnection,
+  onConnectionSelect,
+}: Map3DProps) {
   // Prepare filtered exchanges & regions for positions
   const filteredExchanges = exchanges.filter(
     (ex) =>
@@ -151,12 +158,21 @@ export default function Map3D({ setHovered, filters }: Map3DProps) {
   );
 
   // Compute offset positions
-  const exchangePositions = filteredExchanges.map((m) => latLngToXYZ(m.lat, m.lng));
-  const regionPositions = filteredRegions.map((m) => latLngToXYZ(m.lat, m.lng));
+  const exchangePositions = filteredExchanges.map((m) =>
+    latLngToXYZ(m.lat, m.lng)
+  );
+  const regionPositions = filteredRegions.map((m) =>
+    latLngToXYZ(m.lat, m.lng)
+  );
   const combinedPositions = [...exchangePositions, ...regionPositions];
   const adjustedPositions = offsetCloseMarkers(combinedPositions, 0.07);
-  const adjustedExchangePositions = adjustedPositions.slice(0, exchangePositions.length);
-  const adjustedRegionPositions = adjustedPositions.slice(exchangePositions.length);
+  const adjustedExchangePositions = adjustedPositions.slice(
+    0,
+    exchangePositions.length
+  );
+  const adjustedRegionPositions = adjustedPositions.slice(
+    exchangePositions.length
+  );
 
   return (
     <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
@@ -173,26 +189,38 @@ export default function Map3D({ setHovered, filters }: Map3DProps) {
       {/* Draw Latency Connections */}
       {filters.showConnections &&
         latencyData.map((conn) => {
-          // Find indexes of filtered markers
-          const exchangeIndex = filteredExchanges.findIndex(ex => ex.name === conn.exchange);
-          const regionIndex = filteredRegions.findIndex(r => r.code === conn.region);
+          const exchangeIndex = filteredExchanges.findIndex(
+            (ex) => ex.name === conn.exchange
+          );
+          const regionIndex = filteredRegions.findIndex(
+            (r) => r.code === conn.region
+          );
           if (exchangeIndex === -1 || regionIndex === -1) return null;
 
           // Filter lines by latency range selection
           if (filters.latency === "low" && conn.latency >= 50) return null;
-          if (filters.latency === "medium" && (conn.latency < 50 || conn.latency > 100)) return null;
+          if (
+            filters.latency === "medium" &&
+            (conn.latency < 50 || conn.latency > 100)
+          )
+            return null;
           if (filters.latency === "high" && conn.latency <= 100) return null;
+
+          const start = adjustedExchangePositions[exchangeIndex];
+          const end = adjustedRegionPositions[regionIndex];
 
           return (
             <LatencyConnection
               key={`${conn.exchange}-${conn.region}`}
-              start={adjustedExchangePositions[exchangeIndex]}
-              end={adjustedRegionPositions[regionIndex]}
+              start={start}
+              end={end}
               latency={conn.latency}
+              onPointerDown={() =>
+                onConnectionSelect(conn.exchange, conn.region)
+              }
             />
           );
-        })
-      }
+        })}
 
       <Markers
         setHovered={setHovered}

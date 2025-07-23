@@ -1,50 +1,87 @@
 'use client';
 
 import React, { useState } from 'react';
-import Tooltip from './ToolTip/Tooltip';
 import Map3D from './Map3D';
-import { MarkerData } from '../types/marker';
 import ControlPanel from './ControlPanel';
+import Tooltip from './ToolTip/Tooltip';
+import LatencyChart from './LatencyChart';
+import { useLatencyHistory } from '../hooks/useLatencyData';
+import { MarkerData } from '../types/marker';
 import { FilterState } from '../types/filter';
 
-const initialFilters: FilterState = {
-  provider: 'All',
-  exchange: '',
-  latency: 'all',
-  search: '',
-  showMarkers: true,
-  showConnections: true
-};
-
-const Map3DWrapper = () => {
+export default function Map3DWrapper() {
   const [hovered, setHovered] = useState<MarkerData | null>(null);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [filters, setFilters] = useState(initialFilters);
+  const [selectedConnection, setSelectedConnection] = useState<{
+    exchange: string | null;
+    region: string | null;
+  }>({ exchange: null, region: null });
 
-  // Merging filter state updates
-  const setState = (partial: Partial<FilterState>) =>
-    setFilters(prev => ({ ...prev, ...partial }));
+  const initialFilters: FilterState = {
+    provider: 'All',
+    exchange: '',
+    latency: 'all',
+    search: '',
+    showMarkers: true,
+    showConnections: true,
+  }
+
+  const [filters, setFilters] = useState(initialFilters);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+
+  const setState = (partial: Partial<FilterState>) => {
+    setFilters((prev: FilterState) => ({ ...prev, ...partial }));
+  };
+
+  const { history, loading } = useLatencyHistory(
+    selectedConnection.exchange,
+    selectedConnection.region,
+    24
+  );
+
+  const handleConnectionSelect = (
+    exchange: string,
+    region: string
+  ) => {
+    setSelectedConnection({ exchange, region });
+  };
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: '#101622',
-        overflow: 'hidden'
-      }}
-      onMouseMove={e => setCoords({ x: e.clientX, y: e.clientY })}
-    >
-      {/* 3D Map Area */}
-      <Map3D setHovered={setHovered} hovered={hovered} filters={filters} />
+    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+      <div
+        style={{
+          width: 360,
+          backgroundColor: '#202435',
+          color: '#eee',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 24,
+          padding: 24,
+          overflowY: 'auto'
+        }}
+      >
+        <ControlPanel state={filters} setState={setState} />
+        <LatencyChart 
+          history={history}
+          loading={loading}
+          selectedExchange={selectedConnection.exchange}
+          selectedRegion={selectedConnection.region}
+        />
+      </div>
 
-      <ControlPanel state={filters} setState={setState} />
-
-      {/* Show tooltip only when hovering */}
-      {hovered && <Tooltip data={hovered} x={coords.x} y={coords.y} />}
+      <div 
+        style={{ flexGrow: 1, position: 'relative' }}
+        onMouseMove={e => setCoords({ x: e.clientX, y: e.clientY })}
+      >
+        <Map3D 
+          filters={filters}
+          setHovered={setHovered}
+          selectedConnection={selectedConnection}
+          onConnectionSelect={handleConnectionSelect}
+        />
+        {hovered && (
+          <Tooltip data={hovered} x={coords.x} y={coords.y} />
+        )}
+      </div>
     </div>
   );
-};
-
-export default Map3DWrapper;
+}
