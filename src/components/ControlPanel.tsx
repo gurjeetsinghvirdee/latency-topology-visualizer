@@ -36,7 +36,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
         top: 100,
         left: 10,
         background: "#555A6F",
-        color: "#fff",
+        color: "#8ffffb",
         padding: 20,
         borderRadius: 5,
         zIndex: 20,

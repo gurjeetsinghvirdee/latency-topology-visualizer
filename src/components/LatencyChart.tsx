@@ -73,7 +73,7 @@ export default function LatencyChart({
         borderRadius: 5,
         padding: 24,
         width: 340,
-        color: 'white',
+        color: '#8ffffb',
         fontFamily: 'Inter, sans-serif',
         fontWeight: 500
       }}
@@ -91,12 +91,12 @@ export default function LatencyChart({
           <XAxis
             dataKey="timestamp"
             tickFormatter={formatTime}
-            stroke="#bbb"
+            stroke="#8ffffb"
             minTickGap={20}
           />
           <YAxis
             domain={['dataMin - 10', 'dataMax + 10']}
-            stroke="#bbb"
+            stroke="#8ffffb"
             allowDecimals={false}
           />
           <Tooltip

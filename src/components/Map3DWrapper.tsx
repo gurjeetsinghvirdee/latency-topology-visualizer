@@ -51,8 +51,7 @@ export default function Map3DWrapper() {
       <div
         style={{
           width: 360,
-          backgroundColor: '#11131A',
-          color: '#eee',
+          backgroundColor: 'darkslategray',
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'auto'
