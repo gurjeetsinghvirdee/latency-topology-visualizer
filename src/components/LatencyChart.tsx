@@ -1,15 +1,7 @@
 'use client';
 
 import React from "react";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
+import { CartesianGrid, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Line } from "recharts";
 
 interface LatencyPoint {
   timestamp: number;
@@ -25,7 +17,7 @@ interface LatencyChartProps {
 
 function formatTime(ts: number) {
   const d = new Date(ts * 1000);
-  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  return d.toLocaleDateString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 export default function LatencyChart({
@@ -36,87 +28,79 @@ export default function LatencyChart({
 }: LatencyChartProps) {
   if (!selectedExchange || !selectedRegion) {
     return (
-      <div style={{ padding: 20, color: '#eee' }}>
+      <section className="bg-cyan-900 p-4 mb-8 shadow-lg w-full min-h-[250px] flex items-center justify-center text-green-300 select-none">
         Please select an exchange and region to view latency trends.
-      </div>
+      </section>
     );
   }
 
   if (loading) {
     return (
-      <div style={{ padding: 20, color: '#eee' }}>
+      <section className="bg-cyan-900 p-6 mb-8 shadow-lg w-full min-h-[250px] flex items-center justify-center text-white select-none">
         Loading data...
-      </div>
+      </section>
     );
   }
 
   if (!history.length) {
     return (
-      <div style={{ padding: 20, color: '#eee' }}>
-        No latency data available.
-      </div>
+      <section className="p-6 mb-8 shadow-lg w-full min-h-[250px] flex items-center justify-center text-green-300 select-none">
+        No latency data available for {selectedExchange} in {selectedRegion}
+      </section>
     );
   }
 
   const latencies = history.map((p) => p.latency);
   const min = Math.min(...latencies);
-  const max = Math.max(...latencies);
+  const max = Math.max(...latencies)
   const avg = Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
 
   return (
-    <aside
-      style={{
-        position: 'absolute',
-        bottom: 95,
-        left: 10,
-        backgroundColor: '#555A6F',
-        borderRadius: 5,
-        padding: 24,
-        width: 340,
-        color: '#8ffffb',
-        fontFamily: 'Inter, sans-serif',
-        fontWeight: 500
-      }}
-    >
-      <h2 style={{ marginTop: 0 }}>
-        Latency Trends: {selectedExchange} - {selectedRegion}
+    <section className="bg-cyan-900 bg-opacity-90 rounded-lg mb-8 shadow-lg w-full p-5 max-w-md text-white font-medium font-inter select-none">
+      <h2 className="text-xl font-semibold mb-2">
+        Latency Trends: <span className="text-white">{selectedExchange}</span>
       </h2>
-      <p>
-        <strong>Min:</strong> {min} ms | <strong>Max:</strong> {max} ms |{' '}
+      <p className="mb-4">
+        <strong className="text-green-400">Min:</strong> {min} ms &nbsp;|&nbsp;
+        <strong className="text-red-400">Max:</strong> {max} ms &nbsp;|&nbsp;
         <strong>Avg:</strong> {avg} ms
       </p>
-      <ResponsiveContainer width="100%" height={220}>
-        <LineChart data={history}>
-          <CartesianGrid stroke="#444" strokeDasharray="3 3" />
-          <XAxis
-            dataKey="timestamp"
-            tickFormatter={formatTime}
-            stroke="#8ffffb"
-            minTickGap={20}
-          />
-          <YAxis
-            domain={['dataMin - 10', 'dataMax + 10']}
-            stroke="#8ffffb"
-            allowDecimals={false}
-          />
-          <Tooltip
-            labelFormatter={(label) =>
-              new Date(label * 1000).toLocaleString()
-            }
-            contentStyle={{ backgroundColor: '#333', borderRadius: 6 }}
-            labelStyle={{ color: '#eee' }}
-            itemStyle={{ color: '#eee' }}
-          />
-          <Line
-            type="monotone"
-            dataKey="latency"
-            stroke="#FFB400"
-            strokeWidth={3}
-            dot={false}
-            animationDuration={500}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </aside>
-  );
+      <div className="w-full h-56">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={history}>
+            <CartesianGrid stroke="#334155" strokeDasharray="3 3" />
+            <XAxis 
+              dataKey="timestamp"
+              tickFormatter={formatTime}
+              stroke="#8ffffb"
+              minTickGap={20}
+            />
+            <YAxis 
+              domain={['dataMin - 10', 'dataMax + 10']}
+              stroke="#8ffffb"
+              allowDecimals={false}
+              width={40}
+            />
+            <Tooltip
+              labelFormatter={(label) => 
+                new Date(label * 1000).toLocaleString()
+              }
+              contentStyle={{ backgroundColor: '#1e293b', borderRadius: 6 }}
+              labelStyle={{ color: '#e0e7ff' }}
+              itemStyle={{ color: '#e0e7ff' }}
+            />
+            <Line 
+              type="monotone"
+              dataKey="latency"
+              stroke="#ffb400"
+              strokeWidth={3}
+              dot={false}
+              animationDuration={500}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
+  )
 }
+

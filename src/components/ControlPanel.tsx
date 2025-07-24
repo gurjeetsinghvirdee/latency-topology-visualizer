@@ -1,5 +1,6 @@
 'use client';
 
+import React from "react";
 import { Provider, LatencyRange, FilterState } from "../types/filter";
 import exchanges from "../data/exchanges.json";
 import { Exchange } from "../types/exchange";
@@ -15,119 +16,106 @@ const providers: Provider[] = ["All", "AWS", "GCP", "Azure"];
 const latencyRanges: LatencyRange[] = ["all", "low", "medium", "high"];
 
 export default function ControlPanel({ state, setState }: ControlPanelProps) {
-  const inputStyle = {
-    backgroundColor: "#23242a",
-    color: "#fff",
-    border: "1px solid #444",
-  };
-
-  const selectStyle = {
-    ...inputStyle,
-    borderRadius: 5,
-    padding: "6px 8px",
-    marginLeft: 8,
-    appearance: "none" as const,
-  };
-
   return (
-    <aside
-      style={{
-        position: "absolute",
-        top: 100,
-        left: 10,
-        background: "#555A6F",
-        color: "#8ffffb",
-        padding: 20,
-        borderRadius: 5,
-        zIndex: 20,
-        width: 340,
-        fontFamily: "sans-serif",
-        boxShadow: "0 2px 20px rgba(0,0,0,0.14)",
-      }}
-    >
-      <div style={{ marginBottom: 18 }}>
-        <label>
-          <b>Search:</b>
-          <input
-            type="text"
-            value={state.search}
-            onChange={e => setState({ search: e.target.value })}
-            style={{ ...inputStyle, marginLeft: 8, borderRadius: 6, padding: "6px 10px", width: 170 }}
-            placeholder="Exchange or Region"
-          />
+    <aside className="fixed top-20 p-6 left-3 md:left-4 bg-cyan-900 bg-opacity-90 text-white p-6 rounded-lg shadow-lg w-80 max-w-full z-20 font-sans">
+      {/* Search */}
+      <div className="mb-5">
+        <label className="block mb-2 font-semibold text-gray-100">
+          Search:
         </label>
+        <input
+          type="text"
+          value={state.search}
+          onChange={e => setState({ search: e.target.value })}
+          placeholder="Exchange or Region"
+          className="w-full bg-gray-900 text-white border border-cyan-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 placeholder-gray-500"
+          spellCheck={false}
+        />
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <b>Exchange:</b>
+
+      {/* Exchange Select */}
+      <div className="mb-5">
+        <label className="block mb-2 font-semibold text-gray-100">
+          Exchange:
+        </label>
         <select
           value={state.exchange}
           onChange={e => setState({ exchange: e.target.value })}
-          style={selectStyle}
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
         >
-          <option value="" style={inputStyle}>All</option>
+          <option value="" className="bg-gray-900">All</option>
           {allExchanges.map((ex) => (
-            <option
-              key={ex.name}
-              value={ex.name}
-              style={inputStyle}
-            >
+            <option key={ex.name} value={ex.name} className="bg-gray-900">
               {ex.name}
             </option>
           ))}
         </select>
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <b>Cloud Provider:</b>
+
+      {/* Cloud Provider Select */}
+      <div className="mb-5">
+        <label className="block mb-2 font-semibold text-gray-100">
+          Cloud Provider:
+        </label>
         <select
           value={state.provider}
           onChange={e => setState({ provider: e.target.value as Provider })}
-          style={selectStyle}
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
         >
-          {providers.map(provider => (
-            <option key={provider} value={provider} style={inputStyle}>
+          {providers.map((provider) => (
+            <option key={provider} value={provider} className="bg-gray-900">
               {provider}
             </option>
           ))}
         </select>
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <b>Latency:</b>
+
+      {/* Latency Range Select */}
+      <div className="mb-5">
+        <label className="block mb-2 font-semibold text-gray-100">
+          Latency:
+        </label>
         <select
           value={state.latency}
           onChange={e => setState({ latency: e.target.value as LatencyRange })}
-          style={selectStyle}
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
         >
-          {latencyRanges.map(l => (
-            <option key={l} value={l} style={inputStyle}>
-              {l[0].toUpperCase() + l.slice(1)}
+          {latencyRanges.map((l) => (
+            <option key={l} value={l} className="bg-gray-900">
+              {l.charAt(0).toUpperCase() + l.slice(1)}
             </option>
           ))}
         </select>
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <label style={{ display: "block", marginBottom: 8 }}>
-          <input style={{ cursor: "pointer" }}
+
+      {/* Toggles */}
+      <div className="mb-1 space-y-3">
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
             type="checkbox"
             checked={state.showMarkers}
             onChange={e => setState({ showMarkers: e.target.checked })}
+            className="w-5 h-5 text-yellow-400 bg-gray-900 border-gray-700 rounded focus:ring-yellow-400"
           />
-          <span style={{ marginLeft: 8 }}>Show Markers</span>
+          <span className="text-gray-100 font-medium">Show Markers</span>
         </label>
-        <label style={{ display: "block", marginBottom: 8 }}>
-          <input style={{ cursor: "pointer" }}
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
             type="checkbox"
             checked={state.showConnections}
             onChange={e => setState({ showConnections: e.target.checked })}
+            className="w-5 h-5 text-yellow-400 bg-gray-900 border-gray-700 rounded focus:ring-yellow-400"
           />
-          <span style={{ marginLeft: 8 }}>Show Latency Lines</span>
+          <span className="text-gray-100 font-medium">Show Latency Lines</span>
         </label>
-        <label style={{ display: "block", marginBottom: 8 }}>
-          <input style={{ cursor: "pointer" }}
+        <label className="flex items-center gap-2 cursor-pointer select-none">
+          <input
             type="checkbox"
             checked={state.showClusters}
             onChange={e => setState({ showClusters: e.target.checked })}
+            className="w-5 h-5 text-yellow-400 bg-gray-900 border-gray-700 rounded focus:ring-yellow-400"
           />
-          <span style={{ marginLeft: 8 }}>Show Cloud Region Clusters</span>
+          <span className="text-gray-100 font-medium">Show Cloud Region Clusters</span>
         </label>
       </div>
     </aside>

@@ -25,23 +25,6 @@ body {
   font-family: 'Inter', 'Roboto', sans-serif;
 }
 
-.desktop-only {
-  display: flex;
-  color: #8ffffb;
-  text-align: center;
-  margin: 16px 0;
-  font-size: 0.9rem;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .desktop-only {
-    display: block;
-  }
-
-  .desktop-only hr {
-    margin: 8px 0;
-    border: none;
-    border-top: 1px solid #f4f4f4;
-  }
+.latency-chart > section {
+  top: 100px;
 }

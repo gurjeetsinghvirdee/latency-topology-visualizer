@@ -47,7 +47,7 @@ export default function Map3DWrapper() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+    <div className='flex flex-col md:flex-row h-screen'>
       <div
         style={{
           width: 360,
@@ -57,13 +57,13 @@ export default function Map3DWrapper() {
           overflowY: 'auto'
         }}
       >
-        <div className='desktop-only'>
+        <div className='text-gray-200 p-4 mb-auto md:p-5 w-full md:w-90 flex flex-col'>
           <hr />
           <p>This feature works best on desktop screens.</p>
           <hr />
         </div>
         <ControlPanel state={filters} setState={setState} />
-        <LatencyChart 
+        <LatencyChart
           history={history}
           loading={loading}
           selectedExchange={selectedConnection.exchange}

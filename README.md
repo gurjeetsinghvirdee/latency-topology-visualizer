@@ -65,6 +65,7 @@ latency-topology-visualizer/
 
 ### Tech Stack
 - Next.js 15+ (App Router)
+- Tailwind CSS 4
 - React Three Fiber & Drei
 - TypeScript (strict)
 - Recharts (historical charts)

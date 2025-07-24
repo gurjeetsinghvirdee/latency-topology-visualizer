@@ -47,7 +47,8 @@ function Markers({
       (!filters.exchange || ex.name === filters.exchange) &&
       (filters.search === "" ||
         ex.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        ex.location.toLowerCase().includes(filters.search.toLowerCase()))
+        ex.location.toLowerCase().includes(filters.search.toLowerCase
+    ()))
   );
 
   const filteredRegions = regions.filter(
@@ -55,7 +56,8 @@ function Markers({
       (filters.provider === "All" || region.provider === filters.provider) &&
       (filters.search === "" ||
         region.location.toLowerCase().includes(filters.search.toLowerCase()) ||
-        region.code?.toLowerCase().includes(filters.search.toLowerCase()))
+        region.code?.toLowerCase().includes(filters.search.toLowerCase
+    ()))
   );
 
   return (
