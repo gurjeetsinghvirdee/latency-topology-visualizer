@@ -51,15 +51,18 @@ export default function Map3DWrapper() {
       <div
         style={{
           width: 360,
-          backgroundColor: '#202435',
+          backgroundColor: '#11131A',
           color: '#eee',
           display: 'flex',
           flexDirection: 'column',
-          gap: 24,
-          padding: 24,
           overflowY: 'auto'
         }}
       >
+        <div className='desktop-only'>
+          <hr />
+          <p>This feature works best on desktop screens.</p>
+          <hr />
+        </div>
         <ControlPanel state={filters} setState={setState} />
         <LatencyChart 
           history={history}

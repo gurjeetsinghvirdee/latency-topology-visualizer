@@ -24,3 +24,24 @@ body {
   color: #f7f7fa;
   font-family: 'Inter', 'Roboto', sans-serif;
 }
+
+.desktop-only {
+  display: flex;
+  color: #808380;
+  text-align: center;
+  margin: 16px 0;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+
+  .desktop-only hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #f4f4f4;
+  }
+}

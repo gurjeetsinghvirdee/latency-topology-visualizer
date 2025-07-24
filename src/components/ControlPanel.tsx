@@ -33,9 +33,9 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
     <aside
       style={{
         position: "absolute",
-        top: 10,
+        top: 100,
         left: 10,
-        background: "#232746",
+        background: "#555A6F",
         color: "#fff",
         padding: 20,
         borderRadius: 5,
@@ -52,8 +52,8 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
             type="text"
             value={state.search}
             onChange={e => setState({ search: e.target.value })}
-            style={{ ...inputStyle, marginLeft: 8, borderRadius: 6, padding: "6px 10px", width: 160 }}
-            placeholder="Exchange or region"
+            style={{ ...inputStyle, marginLeft: 8, borderRadius: 6, padding: "6px 10px", width: 170 }}
+            placeholder="Exchange or Region"
           />
         </label>
       </div>
@@ -106,7 +106,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
       </div>
       <div style={{ marginBottom: 16 }}>
         <label style={{ display: "block", marginBottom: 8 }}>
-          <input
+          <input style={{ cursor: "pointer" }}
             type="checkbox"
             checked={state.showMarkers}
             onChange={e => setState({ showMarkers: e.target.checked })}
@@ -114,7 +114,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
           <span style={{ marginLeft: 8 }}>Show Markers</span>
         </label>
         <label style={{ display: "block", marginBottom: 8 }}>
-          <input
+          <input style={{ cursor: "pointer" }}
             type="checkbox"
             checked={state.showConnections}
             onChange={e => setState({ showConnections: e.target.checked })}
@@ -122,7 +122,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
           <span style={{ marginLeft: 8 }}>Show Latency Lines</span>
         </label>
         <label style={{ display: "block", marginBottom: 8 }}>
-          <input
+          <input style={{ cursor: "pointer" }}
             type="checkbox"
             checked={state.showClusters}
             onChange={e => setState({ showClusters: e.target.checked })}

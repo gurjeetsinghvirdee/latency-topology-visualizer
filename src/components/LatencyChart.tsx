@@ -67,9 +67,9 @@ export default function LatencyChart({
     <aside
       style={{
         position: 'absolute',
-        bottom: 205,
+        bottom: 95,
         left: 10,
-        backgroundColor: '#232746',
+        backgroundColor: '#555A6F',
         borderRadius: 5,
         padding: 24,
         width: 340,
