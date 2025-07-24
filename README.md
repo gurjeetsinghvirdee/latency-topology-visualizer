@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 3D Latency Topology Visualizer
+A next-generation, interactive 3D visualization dashboard for exploring latency and connectivity between major cryptocurrency exchanges and cloud provider regions. Built with Next.js, React Three Fiber, and TypeScript, it combines real-time data, advanced filtering, and a modern, desk-ready user interface.
 
-## Getting Started
+### Features
+- Interactive 3D Globe:
+  Rotate, zoom, and pan across a real-time map of global cloud regions and exchanges.
 
-First, run the development server:
+- Dynamic Exchange & Region Markers:
+  Neon-coded, glut-resistant markers distinguish AWS, GCP, and Azure regions.
+  Detailed tooltips reveal exchange/location, provider, and codes on hover.
 
+- Animated Latency Visualization:
+  Latency connections appear as pulsing, color-coded lines (green/yellow/red) mapping real-time delays between exchanges and cloud regions.
+  Filter connections by latency range instantly.
+
+- Historical Latency Trends:
+ Select any exchange-region pair to view charts of latency over time (min/avg/max, with range selectors).
+
+- Cloud Region "Clusters":
+  Distinct translucent overlays show provider coverage on the globe. Toggle visibility of each cloud’s regional presence.
+
+- Advanced Filtering & Search:
+  Sidebar lets you filter by provider, exchange, region, latency tier, and search by name/code.
+
+### Demo
+> Note: For local development and code review only. This project works best on desktop screens.
+
+### Setup & Local Development
+
+#### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/gurjeetsinghvirdee/latency-topology-visualizer
+cd latency-topology-visualizer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### 3. Start the Development Server
+```bash
+npm run dev
+```
+Open the PORT at **3000**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Project Structure
+```
+latency-topology-visualizer/
+├── app/                # Next.js: layout.tsx, page.tsx
+├── public/             # Static Assets
+├── src/
+│   ├── components/     # All UI components
+│   │   └── ToolTip/    # Subfolder for widgets
+│   ├── data/           # Static/mock data
+│   ├── hooks/          # Custom hooks
+│   ├── types/          # TS type/interface files
+│   └── utils/          # Utility/helper functions
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── tsconfig.json
+└── README.md
+```
 
-## Learn More
+### Tech Stack
+- Next.js 15+ (App Router)
+- React Three Fiber & Drei
+- TypeScript (strict)
+- Recharts (historical charts)
+- Styled with global CSS & glassmorphism
+- Data: Local (JSON) / mock, extensible to API sources
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### How to Use
+- Filter regions, cloud, and exchanges in the sidebar
+- Toggle markers, latency lines, and region overlays
+- Click latency lines to see historical latency trends
+- On desktop, enjoy full rotation, zoom, and interactive tooltips
