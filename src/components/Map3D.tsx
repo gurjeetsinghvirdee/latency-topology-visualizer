@@ -2,10 +2,11 @@
 
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
+import * as THREE from "three";
 import exchanges from "../data/exchanges.json";
 import regions from "../data/regions.json";
 import latencyData from "../data/mockLatency.json";
-import { latLngToXYZ } from "../utils/latLngToXYZ";
+import { latLngToXYZ } from '../utils/latLngToXYZ';
 import { offsetCloseMarkers } from "../utils/offsetCloseMarkers";
 import LatencyConnection from "./LatencyConnection";
 import { MarkerData } from "../types/marker";
@@ -59,6 +60,30 @@ function Markers({
 
   return (
     <>
+      {filters.showClusters && regions
+        .filter(r =>
+          filters.provider === "All" || r.provider === filters.provider
+        )
+        .map(region => {
+          const [x, y, z] = latLngToXYZ(region.lat, region.lng);
+          const color = providerColors[region.provider] || providerColors.Default;
+          return (
+            <mesh
+              key={`region-dome-${region.code}`}
+              position={[x, y, z]}
+              scale={[1, 1, 0.6]}
+            >
+              <sphereGeometry args={[0.2, 10, 10]} />
+              <meshStandardMaterial
+                color={color}
+                opacity={0.13}
+                transparent
+                depthWrite={false}
+                blending={THREE.AdditiveBlending}
+              />
+            </mesh>
+          );
+        })}
       {/* Exchanges */}
       {filters.showMarkers &&
         filteredExchanges.map((exchange, idx) => {
@@ -93,7 +118,7 @@ function Markers({
                   color={color}
                   emissive={color}
                   emissiveIntensity={0.8}
-                  metalness={0.9}
+                  metalness={0.5}
                   roughness={0.2}
                 />
               </mesh>
@@ -178,12 +203,12 @@ export default function Map3D({
     <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
       <ambientLight intensity={0.6} />
       <pointLight position={[10, 10, 10]} />
-      <Stars radius={100} depth={50} count={1500} fade speed={1} />
+      <Stars radius={50} depth={50} count={2200} fade speed={2} />
       <OrbitControls enableZoom enableRotate />
       {/* Globe */}
       <mesh>
         <sphereGeometry args={[1.5, 64, 64]} />
-        <meshStandardMaterial color="#1a1a1a" wireframe />
+        <meshStandardMaterial color="#334155" wireframe />
       </mesh>
 
       {/* Draw Latency Connections */}
@@ -197,14 +222,9 @@ export default function Map3D({
           );
           if (exchangeIndex === -1 || regionIndex === -1) return null;
 
-          // Filter lines by latency range selection
-          if (filters.latency === "low" && conn.latency >= 50) return null;
-          if (
-            filters.latency === "medium" &&
-            (conn.latency < 50 || conn.latency > 100)
-          )
-            return null;
-          if (filters.latency === "high" && conn.latency <= 100) return null;
+          if (filters.latency === "low" && !(conn.latency < 50)) return null;
+          if (filters.latency === "medium" && !(conn.latency >= 50 && conn.latency <= 100)) return null;
+          if (filters.latency === "high" && !(conn.latency > 100)) return null;
 
           const start = adjustedExchangePositions[exchangeIndex];
           const end = adjustedRegionPositions[regionIndex];

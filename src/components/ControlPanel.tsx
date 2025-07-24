@@ -33,14 +33,14 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
     <aside
       style={{
         position: "absolute",
-        top: 24,
-        left: 24,
-        background: "#212736e6",
+        top: 10,
+        left: 10,
+        background: "#232746",
         color: "#fff",
         padding: 20,
-        borderRadius: 15,
+        borderRadius: 5,
         zIndex: 20,
-        width: 320,
+        width: 340,
         fontFamily: "sans-serif",
         boxShadow: "0 2px 20px rgba(0,0,0,0.14)",
       }}
@@ -113,13 +113,21 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
           />
           <span style={{ marginLeft: 8 }}>Show Markers</span>
         </label>
-        <label>
+        <label style={{ display: "block", marginBottom: 8 }}>
           <input
             type="checkbox"
             checked={state.showConnections}
             onChange={e => setState({ showConnections: e.target.checked })}
           />
           <span style={{ marginLeft: 8 }}>Show Latency Lines</span>
+        </label>
+        <label style={{ display: "block", marginBottom: 8 }}>
+          <input
+            type="checkbox"
+            checked={state.showClusters}
+            onChange={e => setState({ showClusters: e.target.checked })}
+          />
+          <span style={{ marginLeft: 8 }}>Show Cloud Region Clusters</span>
         </label>
       </div>
     </aside>

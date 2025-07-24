@@ -8,4 +8,5 @@ export interface FilterState {
     search: string;
     showMarkers: boolean;
     showConnections: boolean;
+    showClusters: boolean;
 }

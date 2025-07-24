@@ -64,11 +64,15 @@ export default function LatencyChart({
   const avg = Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
 
   return (
-    <div
+    <aside
       style={{
+        position: 'absolute',
+        bottom: 205,
+        left: 10,
         backgroundColor: '#232746',
-        borderRadius: 12,
+        borderRadius: 5,
         padding: 24,
+        width: 340,
         color: 'white',
         fontFamily: 'Inter, sans-serif',
         fontWeight: 500
@@ -81,7 +85,7 @@ export default function LatencyChart({
         <strong>Min:</strong> {min} ms | <strong>Max:</strong> {max} ms |{' '}
         <strong>Avg:</strong> {avg} ms
       </p>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={220}>
         <LineChart data={history}>
           <CartesianGrid stroke="#444" strokeDasharray="3 3" />
           <XAxis
@@ -113,6 +117,6 @@ export default function LatencyChart({
           />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </aside>
   );
 }

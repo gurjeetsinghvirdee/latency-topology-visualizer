@@ -23,6 +23,7 @@ export default function Map3DWrapper() {
     search: '',
     showMarkers: true,
     showConnections: true,
+    showClusters: true,
   }
 
   const [filters, setFilters] = useState(initialFilters);
