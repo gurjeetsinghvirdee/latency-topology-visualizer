@@ -4,21 +4,16 @@ A next-generation, interactive 3D visualization dashboard for exploring latency 
 ### Features
 - Interactive 3D Globe:
   Rotate, zoom, and pan across a real-time map of global cloud regions and exchanges.
-
 - Dynamic Exchange & Region Markers:
   Neon-coded, glut-resistant markers distinguish AWS, GCP, and Azure regions.
   Detailed tooltips reveal exchange/location, provider, and codes on hover.
-
 - Animated Latency Visualization:
   Latency connections appear as pulsing, color-coded lines (green/yellow/red) mapping real-time delays between exchanges and cloud regions.
   Filter connections by latency range instantly.
-
 - Historical Latency Trends:
  Select any exchange-region pair to view charts of latency over time (min/avg/max, with range selectors).
-
-- Cloud Region "Clusters":
+- Cloud Region __Clusters__:
   Distinct translucent overlays show provider coverage on the globe. Toggle visibility of each cloud’s regional presence.
-
 - Advanced Filtering & Search:
   Sidebar lets you filter by provider, exchange, region, latency tier, and search by name/code.
 
@@ -42,7 +37,7 @@ npm install
 ```bash
 npm run dev
 ```
-Open the PORT at **3000**
+Run the PORT at **3000**
 
 ### Project Structure
 ```
