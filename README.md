@@ -1,4 +1,4 @@
-<img width="1500" height="850" alt="image" src="https://github.com/user-attachments/assets/240add21-242a-416a-b4ec-9469eaeb0581" />
+<img width="1500" height="850" alt="image" src="https://github.com/user-attachments/assets/93d7ba2d-1e96-4141-9028-9e10bf6e73a5" alt="Project overview"/>
 
 ## 3D Latency Topology Visualizer
 A next-generation, interactive 3D visualization dashboard for exploring latency and connectivity between major cryptocurrency exchanges and cloud provider regions. Built with Next.js, React Three Fiber, and TypeScript, it combines real-time data, advanced filtering, and a modern, desk-ready user interface.
