@@ -6,7 +6,7 @@ import ControlPanel from './ControlPanel';
 import Tooltip from './ToolTip/Tooltip';
 import LatencyChart from './LatencyChart';
 import StatusPanel from './StatusPanel';
-// Replace hook
+import { FilterPanel } from './FilterPanel';
 import { useRealTimeMockLatency } from '../hooks/useLiveLatency';
 import { MarkerData } from '../types/marker';
 import { FilterState } from '../types/filter';
@@ -20,7 +20,10 @@ export default function Map3DWrapper() {
   const [selectedConnection, setSelectedConnection] = useState<{
     exchange: string | null;
     region: string | null;
-  }>({ exchange: null, region: null });
+  }>({
+    exchange: null,
+    region: null,
+  });
 
   const initialFilters: FilterState = {
     provider: 'All',
@@ -30,45 +33,43 @@ export default function Map3DWrapper() {
     showMarkers: true,
     showConnections: true,
     showClusters: true,
-  }
+  };
 
   const [filters, setFilters] = useState(initialFilters);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isPanelVisible, setIsPanelVisible] = useState(false);
 
   const setState = (partial: Partial<FilterState>) => {
-    setFilters((prev: FilterState) => ({ ...prev, ...partial }));
+    setFilters((prev) => ({ ...prev, ...partial }));
   };
 
-  // Simulated mock latency feed
+  const handleConnectionSelect = (exchange: string, region: string) => {
+    setSelectedConnection({ exchange, region });
+  };
+
+  const handleClose = () => {
+    setIsPanelVisible(false);
+  };
+
   const { history, loading } = useRealTimeMockLatency(1000);
 
-  const handleConnectionSelect = (exchange: string, region: string) => {
-    setSelectedConnection({ exchange, region })
-  }
-
-  const filteredExchanges = useMemo(
-    () =>
-      exchanges.filter(
-        (ex: Exchange) =>
-          (filters.provider === 'All' || ex.provider === filters.provider) &&
-          (filters.exchange || ex.name === filters.exchange) &&
-          (filters.search === "" ||
-            ex.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-            ex.location.toLowerCase().includes(filters.search.toLowerCase()))
-      ),
-    [filters.provider, filters.exchange, filters.search]
+  const filteredExchanges = useMemo(() =>
+    exchanges.filter((ex: Exchange) =>
+      (filters.provider === 'All' || ex.provider === filters.provider) &&
+      (!filters.exchange || ex.name === filters.exchange) &&
+      (filters.search === "" ||
+        ex.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+        ex.location.toLowerCase().includes(filters.search.toLowerCase()))
+    ), [filters.provider, filters.exchange, filters.search]
   );
 
-  const filteredRegions = useMemo(
-    () =>
-      regions.filter(
-        (region: Region) =>
-          (filters.provider === 'All' || region.provider === filters.provider) &&
-          (filters.search === "" ||
-            region.location.toLowerCase().includes(filters.search.toLowerCase()) ||
-            region.code.toLowerCase().includes(filters.search.toLowerCase()))
-      ),
-    [filters.provider, filters.search]
+  const filteredRegions = useMemo(() =>
+    regions.filter((region: Region) =>
+      (filters.provider === 'All' || region.provider === filters.provider) &&
+      (filters.search === "" ||
+        region.location.toLowerCase().includes(filters.search.toLowerCase()) ||
+        region.code.toLowerCase().includes(filters.search.toLowerCase()))
+    ), [filters.provider, filters.search]
   );
 
   const markerCount = filteredExchanges.length + filteredRegions.length;
@@ -81,17 +82,16 @@ export default function Map3DWrapper() {
   }).length;
 
   return (
-    <div className='flex flex-col md:flex-row h-screen w-full overflow-hidden p-1'>
-      <div className='w-full md:w-[300px] flex-shrink-0 bg-[#092E42] text-white overflow-y-auto'>
-        <StatusPanel 
+    <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden p-1">
+      {/* Desktop Sidebar */}
+      <div className="w-full md:w-[300px] flex-shrink-0 bg-[#092E42] text-white overflow-y-auto hidden md:block">
+        <StatusPanel
           markerCount={markerCount}
           connectionCount={connectionCount}
           apiHealthy={!loading}
           lastUpdated={new Date()}
         />
-
         <ControlPanel state={filters} setState={setState} />
-
         <LatencyChart
           history={history}
           loading={loading}
@@ -100,16 +100,53 @@ export default function Map3DWrapper() {
         />
       </div>
 
+      {/* Main Content */}
       <main
-        style={{ flexGrow: 1, position: 'relative' }}
+        style={{ flexGrow: 1, position: 'relative', height: '100%', width: '100%' }}
         onMouseMove={e => setCoords({ x: e.clientX, y: e.clientY })}
       >
-        <Map3D 
+        <Map3D
           filters={filters}
           setHovered={setHovered}
           selectedConnection={selectedConnection}
           onConnectionSelect={handleConnectionSelect}
         />
+
+        {/* Mobile Toggle Button */}
+        <button
+          onClick={() => setIsPanelVisible((prev) => !prev)}
+          className="absolute top-4 left-4 z-50 md:hidden text-white p-2 bg-[#092E42] rounded"
+        >
+          {isPanelVisible ? (
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <path d="M18 6L6 18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+              <path d="M6 6L18 18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <path d="M4 6h16M4 12h16M4 18h16" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
+        </button>
+
+        {/* Mobile Panel */}
+        <div className={`fixed top-0 left-0 w-full h-full bg-[#092E42] text-white z-40 transform transition-transform duration-300 ease-in-out ${isPanelVisible ? 'translate-x-0' : '-translate-x-full'} md:hidden overflow-y-auto`}>
+          <StatusPanel
+            markerCount={markerCount}
+            connectionCount={connectionCount}
+            apiHealthy={!loading}
+            lastUpdated={new Date()}
+          />
+          <ControlPanel state={filters} setState={setState} />
+          <LatencyChart
+            history={history}
+            loading={loading}
+            selectedExchange={selectedConnection.exchange}
+            selectedRegion={selectedConnection.region}
+          />
+        </div>
+
+        {/* Tooltip */}
         {hovered && (
           <Tooltip data={hovered} x={coords.x} y={coords.y} />
         )}
