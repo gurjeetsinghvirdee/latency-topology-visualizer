@@ -17,7 +17,7 @@ const latencyRanges: LatencyRange[] = ["all", "low", "medium", "high"];
 
 export default function ControlPanel({ state, setState }: ControlPanelProps) {
   return (
-    <aside className="fixed top-20 p-6 left-3 md:left-4 bg-cyan-900 bg-opacity-90 text-white p-6 rounded-lg shadow-lg w-80 max-w-full z-20 font-sans">
+    <div className="md:left-4 bg-cyan-900 bg-opacity-90 rounded text-white p-4 w-80 max-w-full z-20 font-sans">
       {/* Search */}
       <div className="mb-5">
         <label className="block mb-2 font-semibold text-gray-100">
@@ -28,7 +28,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
           value={state.search}
           onChange={e => setState({ search: e.target.value })}
           placeholder="Exchange or Region"
-          className="w-full bg-gray-900 text-white border border-cyan-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 placeholder-gray-500"
+          className="w-full bg-gray-900 text-white border border-cyan-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-500"
           spellCheck={false}
         />
       </div>
@@ -41,7 +41,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
         <select
           value={state.exchange}
           onChange={e => setState({ exchange: e.target.value })}
-          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-amber-400"
         >
           <option value="" className="bg-gray-900">All</option>
           {allExchanges.map((ex) => (
@@ -60,7 +60,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
         <select
           value={state.provider}
           onChange={e => setState({ provider: e.target.value as Provider })}
-          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-amber-400"
         >
           {providers.map((provider) => (
             <option key={provider} value={provider} className="bg-gray-900">
@@ -78,7 +78,7 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
         <select
           value={state.latency}
           onChange={e => setState({ latency: e.target.value as LatencyRange })}
-          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full bg-gray-900 text-white border border-gray-700 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-amber-400"
         >
           {latencyRanges.map((l) => (
             <option key={l} value={l} className="bg-gray-900">
@@ -118,6 +118,6 @@ export default function ControlPanel({ state, setState }: ControlPanelProps) {
           <span className="text-gray-100 font-medium">Show Cloud Region Clusters</span>
         </label>
       </div>
-    </aside>
+    </div>
   );
 }
