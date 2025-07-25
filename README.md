@@ -67,8 +67,7 @@ Run the PORT at **3000**
 ### Project Structure
 ```
 latency-topology-visualizer/
-├── app/                # Next.js: layout.tsx, page.tsx
-├── public/             # Static Assets
+├── app/                # Next.js: layout.tsx, page.tsx             
 ├── src/
 │   ├── components/     # All UI components
 │   │   └── ToolTip/    # Subfolder for widgets
