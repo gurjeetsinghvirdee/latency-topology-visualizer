@@ -115,7 +115,7 @@ export default function Map3DWrapper() {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setIsPanelVisible((prev) => !prev)}
-          className="absolute top-4 left-4 z-50 md:hidden text-white p-2 bg-[#092E42] rounded"
+          className="absolute top-4 right-4 z-50 md:hidden text-white p-2 bg-[#092E42] rounded"
         >
           {isPanelVisible ? (
             <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
