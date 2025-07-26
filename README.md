@@ -62,7 +62,7 @@ npm install
 ```bash
 npm run dev
 ```
-Run the PORT at **3000**
+#### 4. Open **http://localhost:3000** in your browser.
 
 ### Project Structure
 ```
@@ -87,15 +87,20 @@ latency-topology-visualizer/
 
 ### Tech Stack
 - Next.js 15+ (App Router)
-- Tailwind CSS 4
+- Tailwind CSS v4
 - React Three Fiber & Drei
 - TypeScript (strict)
 - Recharts (historical charts)
 - Styled with global CSS & glassmorphism
-- Data: Local (JSON) / mock, extensible to API sources
+- Data: Local (JSON)/mockData
 
 ### How to Use
 - Filter regions, cloud, and exchanges in the sidebar
 - Toggle markers, latency lines, and region overlays
 - Click latency lines to see historical latency trends
 - On desktop, enjoy full rotation, zoom, and interactive tooltips
+
+### Assumptions
+- Latency data is mocked due to the unavailability of a free real-time latency API with timestamps.
+- Time filters (1hr, 24hr, 7d) were removed from the UI for accuracy and clarity.
+- The design focuses on responsiveness and usability across devices.
